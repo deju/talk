@@ -26,12 +26,13 @@
 
         
         约定的目录结构：
+
         build
-            +---- static 
-            |        +---- js/css/images/fonts/...
+            ├─ static 
+            |    └─ js/css/images/fonts/...
             |
-            +---- templates
-            |        +----- index.pug
+            ├─ templates
+            |    └─ index.pug
 
 
         webpack-dev-server做的事：
@@ -56,21 +57,71 @@
 
 这部分可参考[frontend-stand](https://github.com/alphalion-tool/frontend-standard)
 
+### 目录结构设计
+目录结构的合理清晰会让开发起来更简单，更易管理。Bitbal采用路由的方式来划分模块。    
+    
+
+    目录结构如下：    
+    
+    ├─ actions      // 需要的基础actions
+    ├─ assets       // 资源类，图片、字体
+    ├─ components   // 公用的组件
+    ├─ config       // 配置信息，如常量，导航配置等
+    ├─ containers   // 全局容器
+    ├─ locales      // 多语言文件
+    ├─ polyfills    // polyfill
+    ├─ reducers     // 需要的基础reducer，与最开始的actions对应
+    ├─ routes       // 每个路由对应的模块，均放置在该目录
+    ├─ schemas      // 每个数据实体对应的schemas
+    ├─ services     // 网络请求管理
+    ├─ store        // redux store管理
+    ├─ style        // 样式
+    ├─ utils        // 工具类，如格式化等
+    └─ index.js     // 入口
+
+
+    在上述的routes目录中可以查看单个route的写法，而单个route的内部目录如下：
+    
+    AccountList
+        ├─ components       // 内部routes用到的公用的，或者自己拆解的
+        |       ├─ AccountListQuery.js
+        |       ├─ AccountListQuery.scss
+        |       ├─ AccountSelect.js
+        |       └─ AccountSelect.scss
+        |
+        ├─ config           // 配置，如表单、表格等
+        |       ├─ table.js
+        |       ├─ form.js
+        |       └─ sheet.js
+        |
+        ├─ containers       // 容器
+        |       ├─ AccountList.js
+        |       └─ AccountList.scss 
+        |
+        ├─ modules          // action, reducer集合
+        |       ├─ action.js
+        |       └─ reducer.js
+        |         
+        ├─ routes           // 子路由
+        └─ index.js         // 入口
+
+
 
 ### 多语言，绕不过去的坎
 多语言在多数国际化的项目中遇到的越来越多了。Bitbal项目是服务于北美、亚太地区的。所以多语言是需要的。    
 前端根据`react-intl`来实现多语言。将多语言文件放置在一个目录中，然后按语种进行细分。然后根据业务进行细分并创建对应的多语言文件。
-见Bitbal项目中的`src/locales`，同时提供一个装饰器用于在组件中使用，见`src/js/utils/decorators/intlInject.js`。
+见Bitbal项目中的`src/locales`，同时提供一个装饰器用于在组件中使用，见`src/utils/decorators/intlInject.js`。
 
-        
-        en
-        |
-        +----- common.js   // 公共的，如按钮名称，全局都用到的
-        |
-        +----- nav.js  // 导航用到的
-        |
-        +----- ....js // 具体业务用到的，按业务名称划分。
-
+        locales
+            ├─ en
+            |   ├─ common.js    // 公共的，如按钮名称，全局都用到的
+            |   ├─ nav.js       // 导航用到的
+            |   └─ *.js         // 具体业务用到的，按业务名称划分。
+            |
+            ├─ zh
+            |   ├─ common.js
+            |   ├─ nav.js
+            |   └─ *.js
 
 
 ### 开发效率提升
@@ -83,7 +134,7 @@ webpack性能之路，一直都是在做。涉及到dev-server，build的时候�
 数据状态管理用的是`redux`。初始加载只加载部分必须的。而模块的reducer则只当模块被加载时，才通过`injectReducer`将该模块对应的reducer注入到原有的store中。     
 为了防止action type命名冲突问题，针对每个文件的action的type做了处理，每个文件被注入都是有一定顺序的，按照顺序增加index。在名称中也包含这些index。如在实际应用中可以看到action type为`APP-0-switchLang`，`AUTH-1-login`，`AUTH-1-logout`等。     
 
-这部分参考`src/js/actions`，`src/js/reducers`，`src/js/store`
+这部分参考`src/actions`，`src/reducers`，`src/store`
 
 ### 前端优化
 前端优化是个大课题，从React渲染到最终打包的文件不一而足。    
@@ -119,7 +170,7 @@ webpack性能之路，一直都是在做。涉及到dev-server，build的时候�
 测试时，线上避免不了错误。对错误的跟踪，在排查问题的时候变得很有用。但在压缩后，如果没有sourcemap，很难去做定位。所以在错误的时候，由前端或者后端去加载sourcemap并将真实的位置信息记录下来。    
 针对业务数据机密的情况，即使远程部署了，依旧可以通过导出日志来进行追踪并修复。
 
-参考`src/js/utils/errorReport.js`
+参考`src/utils/errorReport.js`
 
 ### 内部工具
 结合内部的情况，开发一些供内部使用的工具。效率先行。能让程序做的事，就让程序来处理。    
