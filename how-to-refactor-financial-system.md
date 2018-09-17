@@ -65,10 +65,13 @@
     
     ├─ actions      // 需要的基础actions
     ├─ assets       // 资源类，图片、字体
+    |     ├─ images     // 图片资源
+    |     ├─ fonts      // 字体资源
+    |     ├─ locales    // 多语言文件
+    |     └─ style      // 样式
     ├─ components   // 公用的组件
     ├─ config       // 配置信息，如常量，导航配置等
     ├─ containers   // 全局容器
-    ├─ locales      // 多语言文件
     ├─ polyfills    // polyfill
     ├─ reducers     // 需要的基础reducer，与最开始的actions对应
     ├─ routes       // 每个路由对应的模块，均放置在该目录
@@ -110,7 +113,7 @@
 ### 多语言，绕不过去的坎
 多语言在多数国际化的项目中遇到的越来越多了。Bitbal项目是服务于北美、亚太地区的。所以多语言是需要的。    
 前端根据`react-intl`来实现多语言。将多语言文件放置在一个目录中，然后按语种进行细分。然后根据业务进行细分并创建对应的多语言文件。
-见Bitbal项目中的`src/locales`，同时提供一个装饰器用于在组件中使用，见`src/utils/decorators/intlInject.js`。
+见Bitbal项目中的`src/assets/locales`，同时提供一个装饰器用于在组件中使用，见`src/assets/locales/index.js`中的`intlInject`。
 
         locales
             ├─ en
