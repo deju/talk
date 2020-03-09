@@ -61,6 +61,6 @@
 
 
 ### 参考
-[UBUNTU 16.04 INSTALL V2RAY](https://linuxscriptshub.com/how-to-install-v2ray-on-ubuntu-16-04/)
-[V2Ray 配置指南](https://toutyrater.github.io/)
-[UUID Generator](https://www.uuidgenerator.net/)
+- [UBUNTU 16.04 INSTALL V2RAY](https://linuxscriptshub.com/how-to-install-v2ray-on-ubuntu-16-04/)
+- [V2Ray 配置指南](https://toutyrater.github.io/)
+- [UUID Generator](https://www.uuidgenerator.net/)
