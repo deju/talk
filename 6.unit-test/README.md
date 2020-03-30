@@ -16,49 +16,49 @@
 单元测试是开发人员编写的、用于检测在特定条件下目标代码正确性的代码。是否存在必要性来源于判断单元测试到底带来了什么好处？
 - 最大程度确保重构时稳定性
 - 反向推动程序设计能力，将代码设计进行解耦
-- 起到README功能
+- 起到`README`功能
 - 方便回归，无需人工手动校验，缩短问题反馈周期(开发阶段即发现)
 - 发布更有信心 
 
 ## React项目测试可能用到的lib
-- react-dom/test-utils (react-dom提供的测试工具集)
-- react-test-renderer (将react组件转换成纯JS对象)
-- enzyme
-- react-testing-library
-- jest 
-- jasmine
-- mocha
-- puppeteer
-- selenium
-- nightwatch
-- cypress
-- karma
+- `react-dom/test-utils` (react-dom提供的测试工具集)
+- `react-test-renderer` (将react组件转换成纯JS对象)
+- `enzyme`
+- `react-testing-library`
+- `jest` 
+- `jasmine`
+- `mocha`
+- `puppeteer`
+- `selenium`
+- `nightwatch`
+- `cypress`
+- `karma`
 
 
 ## React生态常用项目使用的测试工具：
-- React   jest
-- react-router   jest + test-utils + react-test-renderer
-- react-redux  jest + testing-library/react
-- mobx-react jest + testing-library/react
-- antd  jest + enzyme + test-renderer
-- material-UI   mocha + enzyme + react-test-renderer & karma
-- react-bootstrap  mocha + sinon + enzyme & karma 
+- `React`   `jest`
+- `react-router`   `jest + test-utils + react-test-renderer`
+- `react-redux`  `jest + testing-library/react`
+- `mobx-react`  `jest + testing-library/react`
+- `antd`  `jest + enzyme + test-renderer`
+- `material-UI`   `mocha + enzyme + react-test-renderer & karma`
+- `react-bootstrap`  `mocha + sinon + enzyme & karma` 
 
 
 ## 单元测试框架 jest / mocha / jasmine 选择
-- jasmine  开箱即用、社区成熟、比较老
-- mocha  需要较多配置适应新项目，社区成熟
-- jest  开箱即用、API简单、社区较新，在React项目中用的较多   
+- `jasmine`  开箱即用、社区成熟、比较老
+- `mocha`  需要较多配置适应新项目，社区成熟
+- `jest`  开箱即用、API简单、社区较新，在React项目中用的较多   
 
 ## React测试类库 react-testing-library / enzyme 选择
 以下摘抄了官方对于两个测试库的定义。 
-- enzyme
+- `enzyme`
 
     Enzyme is a JavaScript Testing utility for React that makes it easier to test your React Components' output. You can also manipulate, traverse, and in some ways simulate runtime given the output.
 
     // 查看其API总结：enzyme接口较多，可以操作组件来对state、props等进行精准测试    
 
-- react-testing-library  
+- `react-testing-library` 
 
     - If it relates to rendering components, then it should deal with DOM nodes rather than component instances, and it should not encourage dealing with component instances.
     - It should be generally useful for testing the application components in the way the user would use it. We are making some trade-offs here because we're using a computer and often a simulated browser environment, but in general, utilities should encourage tests that use the components the way they're intended to be used.
@@ -66,7 +66,7 @@
 
     // 查看其API总结：接口简单，理念简单
 
-就前端单元测试而言，react-testing-library 的已经足够，而在enzyme可能会陷入过于关注内部实现的状态，深入组件进行操纵来符合我们的测试预期，脱离了用户行为而进行测试，这是一种很糟糕或者无效的测试。而 react-testing-library 仅提供dom节点的用户交互操作，并不提供针对组件实例的操作。当然enzyme同样可以遵循react-testing-library的理念来进行测试编写。 
+就前端单元测试而言，`react-testing-library `的已经足够，而在`enzyme`中可能会陷入过于关注内部实现的状态，深入组件进行操纵来符合我们的测试预期，脱离了用户行为而进行测试，这是一种很糟糕或者无效的测试。而 `react-testing-library` 仅提供dom节点的用户交互操作，并不提供针对组件实例的操作。当然`enzyme`同样可以遵循`react-testing-library`的理念来进行测试编写。 
 
 
 ## 使用 jest & react-testing-library 进行React单元测试
@@ -76,50 +76,51 @@
 #### 一个测试用例的基本组成部分
 
 一个测试脚本文件由一系列测试用例来组成。
-- beforeAll(fn, timeout)
+- `beforeAll(fn, timeout)`
     当前测试文件开始测试前，支持返回promise，只执行一次
-- afterAll(fn, timeout)
+- `afterAll(fn, timeout)`
     当前测试文件测试完成后，支持返回promise，只执行一次
-- beforeEach(fn, timeout)
+- `beforeEach(fn, timeout)`
     每个测试case开始前，执行多次，跟实际运行的case的数量相同，支持返回promise
-- afterEach(fn, timeout)
+- `afterEach(fn, timeout)`
     每个测试case结束后，执行次数跟运行case的数量一致，支持返回promise
-- describe(name, fn)/describe.skip/describe.only/
-    一组测试case的集合，可以将关联性强的测试放在一起
+- `describe(name, fn)/describe.skip/describe.only`
+    一组测试case的集合，可以将关联性强的测试放在一起    
     skip 跳过；only 只运行当前的
-- describe.each(table)(name, fn)
+- `describe.each(table)(name, fn)`
     用于不同的数据运行相同的测试过程，可以将测试数据及结果放在数组中，作为table参数
-    describe.each([
-        [1, 1, 2],
-        [1, 2, 3],
-        [2, 1, 3],
-    ])('.add(%i, %i)', (a, b, expected) => {
-        test(`returns ${expected}`, () => {
-            expect(a + b).toBe(expected);
+
+        describe.each([
+            [1, 1, 2],
+            [1, 2, 3],
+            [2, 1, 3],
+        ])('.add(%i, %i)', (a, b, expected) => {
+            test(`returns ${expected}`, () => {
+                expect(a + b).toBe(expected);
+            });
+
+            test(`returned value not be greater than ${expected}`, () => {
+                expect(a + b).not.toBeGreaterThan(expected);
+            });
+
+            test(`returned value not be less than ${expected}`, () => {
+                expect(a + b).not.toBeLessThan(expected);
+            });
         });
 
-        test(`returned value not be greater than ${expected}`, () => {
-            expect(a + b).not.toBeGreaterThan(expected);
-        });
-
-        test(`returned value not be less than ${expected}`, () => {
-            expect(a + b).not.toBeLessThan(expected);
-        });
-    });
-
-- test(name, fn, timeout)/test.only/test.skip/test.todo
-    单个的测试case
+- `test(name, fn, timeout)/test.only/test.skip/test.todo`
+    单个的测试case    
     only 只运行当前的；skip跳过；todo待编写；
 
-- 断言 expect
-    - expect.extend 对expect扩展
-    - 判断值 toBe/ toEqual / toBeDefined / toBeNull / toBeUndefined / toBeNaN / toBeFalsy / toBeTruthy / toBeCloseTo / toBeGreaterThan / toBeGreaterThanOrEqual / toBeLessThan / toBeLessThanOrEqual / 
-    - 函数类判断 expect.toHaveBeenCalled / expect.toHaveBeenCalledTimes / expect.toHaveBeenCalledWith / expect.toHaveBeenLastCalledWith / expect.toHaveReturned / expect.toHaveReturnedTimes / expect.toHaveReturnedWith / expect.toHaveLastReturnedWith / expect.toHaveNthReturnedWith
-    - 属性类校验 toHaveLength / expect.toHaveProperty 
-    - 非精准判断 expect.arrayContaining / expect.not.arrayContaining / expect.not.objectContaining / expect.not.stringContaining / expect.not.stringMatching / expect.objectContaining / toBeInstanceOf / toMatch / toMatchObject / expect.anything / expect.any / toContain / toContainEqual
-    - promise及错误相关  resolves / rejects / toThrow / 
-    - 快照类 expect.addSnapshotSerializer / toMatchSnapshot / toMatchInlineSnapshot / toThrowErrorMatchingSnapshot / toThrowErrorMatchingInlineSnapshot
-    - 断言数量 expect.assertions / expect.hasAssertions
+- 断言 `expect`
+    - `expect.extend` 对expect扩展
+    - 判断值 `toBe/ toEqual / toBeDefined / toBeNull / toBeUndefined / toBeNaN / toBeFalsy / toBeTruthy / toBeCloseTo / toBeGreaterThan / toBeGreaterThanOrEqual / toBeLessThan / toBeLessThanOrEqual` 
+    - 函数类判断 `expect.toHaveBeenCalled / expect.toHaveBeenCalledTimes / expect.toHaveBeenCalledWith / expect.toHaveBeenLastCalledWith / expect.toHaveReturned / expect.toHaveReturnedTimes / expect.toHaveReturnedWith / expect.toHaveLastReturnedWith / expect.toHaveNthReturnedWith`
+    - 属性类校验 `toHaveLength / expect.toHaveProperty` 
+    - 非精准判断 `expect.arrayContaining / expect.not.arrayContaining / expect.not.objectContaining / expect.not.stringContaining / expect.not.stringMatching / expect.objectContaining / toBeInstanceOf / toMatch / toMatchObject / expect.anything / expect.any / toContain / toContainEqual`
+    - promise及错误相关  `resolves / rejects / toThrow` 
+    - 快照类 `expect.addSnapshotSerializer / toMatchSnapshot / toMatchInlineSnapshot / toThrowErrorMatchingSnapshot / toThrowErrorMatchingInlineSnapshot`
+    - 断言数量 `expect.assertions / expect.hasAssertions`
 
 举个可能的例子：
 
@@ -181,14 +182,14 @@
 
 
 #### mock相关
-- 使用 jest.fn      
+- 使用 `jest.fn`      
     jest.fn
 - 使用 `__mocks__` 目录
-- 时间的mock(针对settimout, setInterval等)     
-    jest.useFakeTimers()       
-    jest.runAllTimers      
-    jest.runOnlyPendingTimers (递归时)    
-    jest.clearAllTimers  
+- 时间的mock(针对`settimout`, `setInterval`等)     
+    `jest.useFakeTimers()`       
+    `jest.runAllTimers`      
+    `jest.runOnlyPendingTimers` (递归时)    
+    `jest.clearAllTimers`  
 
 #### 异步问题 
 - test done支持    
