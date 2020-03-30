@@ -1,8 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-jest.mock('./util', () => ({
-    getRandom: jest.fn()
+jest.doMock('./util', () => ({
+    __esModule: true,
+    default: jest.fn()
 }));
 
 describe('language切换', () => {
