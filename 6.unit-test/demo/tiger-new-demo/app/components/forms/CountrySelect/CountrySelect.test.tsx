@@ -44,7 +44,7 @@ test('disabled 及 默认值', async () => {
 
     const sele = await findByDisplayValue('A');
 
-    expect(sele).toHaveAttribute('disabled');
+    expect(sele).toBeDisabled();
     expect(getFormutil().$params).toEqual({ country_code: '80' });
     expect(getFormutil().$errors).toEqual({});
 });

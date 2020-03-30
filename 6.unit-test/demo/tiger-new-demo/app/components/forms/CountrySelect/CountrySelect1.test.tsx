@@ -1,6 +1,5 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render } from '@testing-library/react';
 import { Form, FormProps, $Formutil, FormGroup, FormGroupComponentProps } from 'react-bootstrap-formutil';
 import CountrySelect, { ICountrySelectProps } from './';
 
@@ -44,7 +43,7 @@ test('disabled 及 默认值', async () => {
 
     const sele = await findByDisplayValue('A');
 
-    expect(sele).toHaveAttribute('disabled');
+    expect(sele).toBeDisabled();
     expect(getFormutil().$params).toEqual({ country_code: '80' });
     expect(getFormutil().$errors).toEqual({});
 });

@@ -32,7 +32,7 @@ describe('country=SGP', () => {
 
         const fullname = await findByDisplayValue('Taylor Swift');
 
-        expect(fullname).toHaveAttribute('disabled');
+        expect(fullname).toBeDefined();
         expect(getAllByRole('textbox')).toHaveLength(1);
         expect(getFormutil().$params).toEqual({ fullname: 'Taylor Swift' });
     });
@@ -112,9 +112,9 @@ describe('country=NZ（即非SGP）', () => {
         const middle = await findByDisplayValue('eric');
         const last = await findByDisplayValue('Juice');
 
-        expect(first).toHaveAttribute('disabled');
-        expect(middle).toHaveAttribute('disabled');
-        expect(last).toHaveAttribute('disabled');
+        expect(first).toBeDisabled();
+        expect(middle).toBeDisabled();
+        expect(last).toBeDisabled();
     });
 
     test('首尾空格清除', async () => {
@@ -154,7 +154,7 @@ describe('country=NZ（即非SGP）', () => {
     });
 
     test('输入校验、为空校验', async () => {
-        const { container, getFormutil, findByPlaceholderText, findByDisplayValue, findByText } = renderNameInfo({
+        const { getFormutil, findByPlaceholderText, getByText, getByDisplayValue } = renderNameInfo({
             country: 'NZ'
         });
 
@@ -168,23 +168,27 @@ describe('country=NZ（即非SGP）', () => {
             middle_name: ''
         });
 
-        userEvent.type(first, ' tianhua ');
+        await userEvent.type(first, ' tianhua ');
 
-        userEvent.type(middle, ' tiger ');
+        await userEvent.type(middle, ' tiger ');
 
-        userEvent.type(last, ' wu ');
+        await userEvent.type(last, ' wu ');
 
-        await findByDisplayValue('tianhua');
-        await findByDisplayValue('tiger');
-        await findByDisplayValue('wu');
+        await waitFor(() => {
+            expect(getByDisplayValue('tianhua')).toBeInTheDocument();
+            expect(getByDisplayValue('tiger')).toBeInTheDocument();
+            expect(getByDisplayValue('wu')).toBeInTheDocument();
+        });
 
-        fireEvent.change(container.querySelector('[name="middle_name"]')!, { target: { value: '' } });
+        fireEvent.change(first, { target: { value: '' } });
 
-        fireEvent.change(container.querySelector('[name="first_name"]')!, { target: { value: '' } });
+        fireEvent.change(middle, { target: { value: '' } });
 
-        fireEvent.change(container.querySelector('[name="last_name"]')!, { target: { value: '' } });
+        fireEvent.change(last, { target: { value: '' } });
 
-        await findByText('请输入名');
-        await findByText('请输入姓');
+        await waitFor(() => {
+            expect(getByText('请输入名')).toBeInTheDocument();
+            expect(getByText('请输入姓')).toBeInTheDocument();
+        });
     });
 });

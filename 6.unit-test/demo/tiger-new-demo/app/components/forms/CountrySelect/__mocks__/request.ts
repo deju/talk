@@ -1,5 +1,5 @@
 export function getCountry() {
-    console.log('get country code mock');
+    // console.log('get country code mock');
 
     return Promise.resolve([
         { name: 'A', numericCode: '80' },

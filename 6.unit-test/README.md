@@ -191,7 +191,7 @@
     describe.skip('group three', () => { });
 
 
-#### mock相关
+#### 支持mock
 - 使用 `jest.fn`      
     jest.fn
 - 使用 `__mocks__` 目录
@@ -232,6 +232,14 @@
                 expect(e).toMatch('error')
             })
         })
+
+#### 覆盖率
+`jest` 内置了 `istanbul` 输出的覆盖率结果，包含了4个部分：
+- statement coverage (语句覆盖率)
+- branch coverage (分支覆盖率)
+- function coverage (函数覆盖率)
+- line coverage (行覆盖率)
+可以根据需要设置覆盖率要求
 
 
 ### react-testing-library 提供的方法有：
@@ -314,7 +322,7 @@
     在afterEach时自动unmount，只要支持afterEach的测试库不需要显示调用
 - `act`    
     对`react-dom/test-utils`的 act 函数的封装
-    // TODO
+    任何页面上、数据上、行为上的导致组件的更新，都应放置到act里。
 
 #### 其他库增强的能力：
 - `jest-dom`    
@@ -343,10 +351,14 @@
 - 案例：mock文件  `components/forms/CountrySelect`
 - 案例：mock请求、异步支持  `components/forms/CountrySelect`
 - 案例：time的mock   `components/forms/Counter`
+- 案例：直接mock  `components/forms/Comment`
 - 案例：快照  `components/forms/Agreement`
+- 案例：导入时将环境分离 `components/forms/Slider`
+- 案例：导入变量和函数的mock `components/forms/Language`
 
-### 查看测试覆盖率
-    npm test -- --coverage --watchAll=false
+### 测试覆盖率
+
+`npm test -- --coverage --watchAll=false`
 
 
 ## 推荐的实践方式
@@ -358,6 +370,7 @@
 - 不可倾入组件实例内部来编写测试，与真正人工操作违背
 - 就近mock。如果只是编写单测，那么就近mock较便捷。当开始集成测试时，可能就近mock时较麻烦，可以改成统一的全局mock。
 - 组件的交互对象有：人、`server/API`、其他关联组件、(`formutil`)等，所以测试时这些输入输出也应该考虑到
+- 覆盖率问题
 
 
 

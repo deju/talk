@@ -47,7 +47,7 @@ test('disabled 及 带有默认值', async () => {
 
     const input = getByDisplayValue('11@itiger.com');
 
-    expect(input).toHaveAttribute('disabled');
+    expect(input).toBeDisabled();
     expect(input).toHaveAttribute('name', 'address_email');
     expect(input).toHaveAttribute('placeholder', 'email-placeholder');
     expect(getFormutil().$params).toEqual({ address_email: '11@itiger.com' });
