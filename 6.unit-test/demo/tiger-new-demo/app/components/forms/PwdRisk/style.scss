@@ -1,0 +1,52 @@
+.pwd-risk-root {
+    display: flex;
+    overflow: hidden;
+    .level-bar {
+        flex: 1;
+        font-size: 12px;
+        text-align: center;
+        color: #888;
+        & + .level-bar {
+            margin-left: 10px;
+        }
+    }
+    .risk-level {
+        display: block;
+        height: 5px;
+        background: #ddd;
+        position: relative;
+
+        span {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            transition: 0.5s ease;
+        }
+    }
+}
+
+.pwd-risk-safety-0 {
+    .level-bar:nth-child(1) {
+        color: #d9534f;
+    }
+    .risk-level span {
+        background-color: #d9534f;
+    }
+}
+.pwd-risk-safety-1 {
+    .level-bar:nth-child(2) {
+        color: #f0ad4e;
+    }
+    .risk-level span {
+        background-color: #f0ad4e;
+    }
+}
+.pwd-risk-safety-2 {
+    .level-bar:nth-child(3) {
+        color: #5cb85c;
+    }
+    .risk-level span {
+        background-color: #5cb85c;
+    }
+}

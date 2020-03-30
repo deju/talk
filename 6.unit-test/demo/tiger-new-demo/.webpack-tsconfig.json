@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "allowJs": false,
+    "checkJs": false
+  },
+  "exclude": [
+    "scripts",
+    "dist",
+    "build",
+    "buildDev",
+    "setupTests.ts",
+    "tests",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "**/__tests__"
+  ]
+}

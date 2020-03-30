@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "allowJs": true,
+    "checkJs": true,
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM"],
+    "jsx": "react",
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": false,
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": false,
+    "importHelpers": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": false,
+    "baseUrl": ".",
+    "paths": {
+      "*": ["*", "app/*"]
+    }
+  },
+  "exclude": ["scripts", "dist", "build", "buildDev"]
+}
