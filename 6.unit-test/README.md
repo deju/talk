@@ -1,9 +1,17 @@
-# React单元测试必知必会
+# React单元测试入门
 
 ## 软件测试中的测试种类
 - 按阶段划分：单元测试、集成测试、系统测试、验收测试、(回归测试)      
 - 按是否查看代码划分：黑盒测试、白盒测试、灰盒测试     
-- 按手工/程序划分：手工测试、自动化测试     
+- 按手工/程序划分：手工测试、自动化测试    
+
+## 开发模式
+- TDD 测试驱动开发 Testing Driven Developemnt    
+这是一种开发范式，即以测试来驱动整个项目，先根据接口或者需求来编写测试用例，然后再开发功能以满足所有的测试用例。
+
+- BDD 行为驱动开发  Behavior Driven Development    
+这是一种写测试的风格，是TDD的延伸，即测试写的需要像自然语言，或者就是自然语言，这样所有的协作方都可以理解和定义测试用例。鼓励开发者、测试人员、非技术人员的协作。 `shouldjs` 即是该风格的库。
+
 
 ## 测试目的
 - 测试是程序的执行过程，目的在于发现错误；  =>  确保正确
@@ -30,7 +38,6 @@
 - `mocha`
 - `puppeteer`
 - `selenium`
-- `nightwatch`
 - `cypress`
 - `karma`
 
@@ -345,7 +352,7 @@
     npm run test
 
 ### 编写测试用例
-请看项目[tiger-new-demo]
+请看项目[demo/tiger-new-demo]
 
 - 案例：普通组件测试 `components/forms/Email`
 - 案例：mock文件  `components/forms/CountrySelect`
@@ -362,15 +369,21 @@
 
 
 ## 推荐的实践方式
+- 测试描述应当是表达力极强的，错误时则很快能够进行定位（更侧重业务方面定位）
+- 单个测试用例应当是单条branch的进行的
+- 测试用例的逻辑应当足够简单
+- 测试用例的运行应当足够快，避免因依赖而耗时很多
+- 不应过多关注内部实现，从用户操作角度考虑出发即可。（观察到的只有dom）
 - 如果组件内有分拆成多个内部组件，且这些只被用于于当前组件内，则不需要额外写测试，直接测试当前组件即可覆盖。
 - 直接以组件或者模块命名即 `CompA.test.tsx`，如果有多个需要测试，可以考虑`__tests__` 目录。
 - 使用`describe`、`test`即可，不建议使用别名`fdescribe`, `xdescribe`, `xit`, `fit`
 - 组件按照业务来进行多个分支测试，且每个分支测试有多个case需要运行到，可以使用`describe`来区分。非必要情况直接用`test`即可。
 - 快照对比，多数项目场景是不必要的
-- 不可倾入组件实例内部来编写测试，与真正人工操作违背
+- 不可侵入组件实例内部来编写测试，与真正人工操作违背
 - 就近mock。如果只是编写单测，那么就近mock较便捷。当开始集成测试时，可能就近mock时较麻烦，可以改成统一的全局mock。
 - 组件的交互对象有：人、`server/API`、其他关联组件、(`formutil`)等，所以测试时这些输入输出也应该考虑到
-- 覆盖率问题
+- 覆盖率可以根据时间和业务来逐步提升，不用严格100%
+- 工具包的测试，使用参数化测试更高校
 
 
 
@@ -392,3 +405,5 @@
 - [mocha](https://mochajs.org/)
 - [前端测试框架对比](https://www.cnblogs.com/lihuanqing/p/8533552.html)
 - [jest-dom](https://github.com/testing-library/jest-dom)
+- [BDD](http://cuketest.com/zh-cn/bdd/why_bdd.html)
+- [shouldjs](https://github.com/shouldjs/should.js)
