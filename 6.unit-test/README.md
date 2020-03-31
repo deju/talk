@@ -364,7 +364,7 @@
     在afterEach时自动unmount，只要支持afterEach的测试库不需要显示调用
 - `act`    
     对`react-dom/test-utils`的 act 函数的封装
-    任何页面上、数据上、行为上的导致组件的更新，都应放置到act里。
+    任何页面上、数据上、行为上的导致组件的更新，都应放置到act里。此方法为了组件的处理更接近React在真实的浏览器上。
 
 #### 其他库增强的能力：
 - `jest-dom`    
