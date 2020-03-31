@@ -21,8 +21,8 @@
 - 发布更有信心 
 
 ## React项目测试可能用到的lib
-- `react-dom/test-utils` (react-dom提供的测试工具集)
-- `react-test-renderer` (将react组件转换成纯JS对象)
+- `react-dom/test-utils` (react-dom提供的测试工具集，react-dom存在的地方就存在，普遍用于各种react的测试库，组件提供)
+- `react-test-renderer` (将react组件转换成纯JS对象，官方提供)
 - `enzyme`
 - `react-testing-library`
 - `jest` 
@@ -39,12 +39,11 @@
 | --- | ----| 
 | `React` | `jest` |
 | `react-router` | `jest + test-utils + react-test-renderer` |
-| `react-redux` | `jest + testing-library/react` |
-| `mobx-react` | `jest + testing-library/react` |
+| `react-redux` | `jest + testing-library/react` 由 `enzyme`迁移而来 |
+| `mobx-react` | `jest + testing-library/react` 由`enzyme` 迁移而来 |
 | `antd` |  `jest + enzyme + test-renderer` |
 | `material-UI` |  `mocha + enzyme + react-test-renderer & karma` |
 | `react-bootstrap` | `mocha + sinon + enzyme & karma` | 
-
 
 ## 单元测试框架 jest / mocha / jasmine 选择
 - `jasmine`  开箱即用、社区成熟、比较老
@@ -351,6 +350,7 @@
 - 案例：mock请求、异步支持  `components/forms/CountrySelect`
 - 案例：time的mock   `components/forms/Counter`
 - 案例：直接mock  `components/forms/Comment`
+- 案例：不mock，直接赋值  `components/forms/Footer`
 - 案例：快照  `components/forms/Agreement`
 - 案例：导入时将环境分离 `components/forms/Slider`
 - 案例：导入变量和函数的mock `components/forms/Language`
