@@ -44,7 +44,7 @@
 | `material-UI` |  `mocha + enzyme + react-test-renderer & karma` |
 | `react-bootstrap` | `mocha + sinon + enzyme & karma` | 
 
-注：`test-library`在UI库中使用的较少可能因为其出现的较晚，另外UI库测试侧重点需要看不同浏览器的状况，使用了`karma` 运行器，同时该运行器与`jest`集成起来有一些问题。
+注：`test-library`在UI库中使用的较少可能因为其出现的较晚，另外UI库测试侧重点需要看不同浏览器的状况，使用了`karma` 运行器，同时该运行器与`jest`集成起来需要解决的问题较多。
 
 ## 单元测试框架 jest / mocha / jasmine 选择
 - `jasmine`  开箱即用、社区成熟、比较老
