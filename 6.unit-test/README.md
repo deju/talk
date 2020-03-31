@@ -120,36 +120,37 @@
 - 断言 `assertions`
     - 判断值    
 
-            toBe   // 相当于 === 判断
-            toEqual  // 值判断，不做引用判断  
+            toBe            // 相当于 === 判断
+            toEqual         // 值判断，不做引用判断  
             toBeDefined | toBeNull | toBeUndefined |  toBeNaN 
-            toBeFalsy // 针对 false, 0, '', null, undefined, NaN 判断
-            toBeTruthy // 非false
-            toBeCloseTo // 浮点数字判断
+            toBeFalsy       // 针对 false, 0, '', null, undefined, NaN 判断
+            toBeTruthy      // 非false
+            toBeCloseTo     // 浮点数字判断
             toBeGreaterThan | toBeGreaterThanOrEqual | toBeLessThan | toBeLessThanOrEqual // 大小判断
     - 函数类判断     
     
-            expect.toHaveBeenCalled  // 被调用 
-            expect.toHaveBeenCalledTimes // 被调用的次数
-            expect.toHaveBeenCalledWith | expect.toHaveBeenLastCalledWith  测试被调用的数据 expect.toHaveReturned | expect.toHaveReturnedTimes | expect.toHaveReturnedWith | expect.toHaveLastReturnedWith | expect.toHaveNthReturnedWith  // 测试返回的数据、次数、是否返回了
+            expect.toHaveBeenCalled         // 被调用 
+            expect.toHaveBeenCalledTimes    // 被调用的次数
+            expect.toHaveBeenCalledWith | expect.toHaveBeenLastCalledWith  // 测试被调用的数据 
+            expect.toHaveReturned | expect.toHaveReturnedTimes | expect.toHaveReturnedWith | expect.toHaveLastReturnedWith | expect.toHaveNthReturnedWith  // 测试返回的数据、次数、是否返回了
     - 属性类校验      
 
-            toHaveLength(number) // 检测.length属性值
-            toHaveProperty(key, value?)  // 检测是否有改属性或属性对应的值
+            toHaveLength(number)        // 检测.length属性值
+            toHaveProperty(key, value?) // 检测是否有改属性或属性对应的值
 
     - 模糊判断  
 
-            toMatch(regexpOrString)   // 进行正则匹配   expect('xx').toMatch('x');
-            toMatchObject(object)   // 检测是否是其子集
-            expect.anything()  // 可以匹配除了 null, undefined的情况   expect('tiger').toEqual(expect.anything());
-            expect.any(constructor);  // 匹配是否由construcotr产生  expect(11).toEqual(expect.any(Number));
+            toMatch(regexpOrString)     // 进行正则匹配   expect('xx').toMatch('x');
+            toMatchObject(object)       // 检测是否是其子集
+            expect.anything()           // 可以匹配除了 null, undefined的情况   expect('tiger').toEqual(expect.anything());
+            expect.any(constructor);    // 匹配是否由construcotr产生  expect(11).toEqual(expect.any(Number));
             expect.arrayContaining | expect.objectContaining | expect.stringContaining   // 测试包含
             expect.stringMatching(string | regexp) // 字符串匹配
-            toBeInstanceOf(Class)  // 测试实例instanceof expect(new CompA()).toBeInstanceOf(CompA);
+            toBeInstanceOf(Class)       // 测试实例instanceof expect(new CompA()).toBeInstanceOf(CompA);
             toContain | toContainEqual  // 检测是否包含，针对数字或者string 
     - promise及错误相关    
             
-            resolves // expect(Promise.resolve('lemon')).resolves.toBe('lemon');
+            resolves            // expect(Promise.resolve('lemon')).resolves.toBe('lemon');
             rejects & toThrow   // expect(Promise.reject(new Error('octopus'))).rejects.toThrow('octopus');
     - 快照类     
     
@@ -157,8 +158,8 @@
 
     - 断言数量   
 
-            expect.assertions(number)  // 验证当前测试中执行了多少个断言，比如说在回调中有断言判断
-            expect.hasAssertions    // 当前测试用例中至少执行了一次断言判断
+            expect.assertions(number)   // 验证当前测试中执行了多少个断言，比如说在回调中有断言判断
+            expect.hasAssertions        // 当前测试用例中至少执行了一次断言判断
 
 
 举个可能的例子：
