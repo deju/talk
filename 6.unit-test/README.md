@@ -34,7 +34,9 @@
 - `karma`
 
 
-## React常用项目的自身测试用例使用的库：
+## 其他常用项目他们是用哪些lib做的测试？
+我们经常使用`react-router`、`redux`、`mobx`等，那他们的开发者在开发库的本身也会进行库进行测试。以下列举了他们测试自身时用的测试lib：
+
 | 生态项目 | 测试当前项目时用到的lib |
 | --- | ----| 
 | `react-router` | `jest + react-test-renderer` |
@@ -45,8 +47,7 @@
 | `react-bootstrap` | `mocha + sinon + enzyme & karma` | 
 
 注：
-- 1, 上面说的是那些项目开发时，**其开发者为项目本身编写测试时用的lib**
-- 2, `test-library`在UI库中使用的较少可能因为其出现的较晚，另外UI库测试侧重点需要看不同浏览器的状况，使用了`karma` 运行器，同时该运行器与`jest`集成起来需要解决的问题较多。
+- `test-library`在UI库中使用的较少可能因为其出现的较晚，另外UI库测试侧重点需要看不同浏览器的状况，使用了`karma` 运行器，同时该运行器与`jest`集成起来需要解决的问题较多。
 
 ## 单元测试框架 jest / mocha / jasmine 选择
 - `jasmine`  开箱即用、社区成熟、比较老
@@ -117,21 +118,48 @@
     only 只运行当前的；skip跳过；todo待编写；
 
 - 断言 `assertions`
-    - `expect.extend` 对expect扩展
-    - 判断值     
-    `toBe/ toEqual / toBeDefined / toBeNull / toBeUndefined / toBeNaN / toBeFalsy / toBeTruthy / toBeCloseTo / toBeGreaterThan / toBeGreaterThanOrEqual / toBeLessThan / toBeLessThanOrEqual` 
+    - 判断值    
+
+            toBe   // 相当于 === 判断
+            toEqual  // 值判断，不做引用判断  
+            toBeDefined | toBeNull | toBeUndefined |  toBeNaN 
+            toBeFalsy // 针对 false, 0, '', null, undefined, NaN 判断
+            toBeTruthy // 非false
+            toBeCloseTo // 浮点数字判断
+            toBeGreaterThan | toBeGreaterThanOrEqual | toBeLessThan | toBeLessThanOrEqual // 大小判断
     - 函数类判断     
-    `expect.toHaveBeenCalled / expect.toHaveBeenCalledTimes / expect.toHaveBeenCalledWith / expect.toHaveBeenLastCalledWith / expect.toHaveReturned / expect.toHaveReturnedTimes / expect.toHaveReturnedWith / expect.toHaveLastReturnedWith / expect.toHaveNthReturnedWith`
+    
+            expect.toHaveBeenCalled  // 被调用 
+            expect.toHaveBeenCalledTimes // 被调用的次数
+            expect.toHaveBeenCalledWith | expect.toHaveBeenLastCalledWith  测试被调用的数据 expect.toHaveReturned | expect.toHaveReturnedTimes | expect.toHaveReturnedWith | expect.toHaveLastReturnedWith | expect.toHaveNthReturnedWith  // 测试返回的数据、次数、是否返回了
     - 属性类校验      
-    `toHaveLength / expect.toHaveProperty` 
-    - 非精准判断    
-    `expect.arrayContaining / expect.not.arrayContaining / expect.not.objectContaining / expect.not.stringContaining / expect.not.stringMatching / expect.objectContaining / toBeInstanceOf / toMatch / toMatchObject / expect.anything / expect.any / toContain / toContainEqual`
+
+            toHaveLength(number) // 检测.length属性值
+            toHaveProperty(key, value?)  // 检测是否有改属性或属性对应的值
+
+    - 模糊判断  
+
+            toMatch(regexpOrString)   // 进行正则匹配   expect('xx').toMatch('x');
+            toMatchObject(object)   // 检测是否是其子集
+            expect.anything()  // 可以匹配除了 null, undefined的情况   expect('tiger').toEqual(expect.anything());
+            expect.any(constructor);  // 匹配是否由construcotr产生  expect(11).toEqual(expect.any(Number));
+            expect.arrayContaining | expect.objectContaining | expect.stringContaining   // 测试包含
+            expect.stringMatching(string | regexp) // 字符串匹配
+            toBeInstanceOf(Class)  // 测试实例instanceof expect(new CompA()).toBeInstanceOf(CompA);
+            toContain | toContainEqual  // 检测是否包含，针对数字或者string 
     - promise及错误相关    
-    `resolves / rejects / toThrow` 
+            
+            resolves // expect(Promise.resolve('lemon')).resolves.toBe('lemon');
+            rejects & toThrow   // expect(Promise.reject(new Error('octopus'))).rejects.toThrow('octopus');
     - 快照类     
-    `expect.addSnapshotSerializer / toMatchSnapshot / toMatchInlineSnapshot / toThrowErrorMatchingSnapshot / toThrowErrorMatchingInlineSnapshot`
-    - 断言数量     
-    `expect.assertions / expect.hasAssertions`
+    
+            toMatchSnapshot | toMatchInlineSnapshot() // 进行快照对比
+
+    - 断言数量   
+
+            expect.assertions(number)  // 验证当前测试中执行了多少个断言，比如说在回调中有断言判断
+            expect.hasAssertions    // 当前测试用例中至少执行了一次断言判断
+
 
 举个可能的例子：
 
@@ -165,7 +193,7 @@
             }));
             expect({ a: 1, b:1 }).toMatchObject({ a: 1 })
             const changeSpy = jest.fn();
-            changeSpy.mock.calls
+            // changeSpy.mock.calls
         });
 
         test.only('demo 2', () => {
@@ -194,7 +222,19 @@
 
 #### 支持mock
 - 使用 `jest.fn`      
-    jest.fn
+`jest.fn()`产生的mock函数，注入了一些用于处理mock的方法或者属性.
+
+        const add = jest.fn();
+        add.mock.calls   // 调用的参数集合
+        add.mock.results   // 返回的结果集合
+        add.mockReset()  // 清空调用、返回的情况
+        add.mockImplementation(fn) // mock一个新的函数实现
+            add.mockImplementation((m, n) => m * n);
+        add.mockImplementationOnce(fn) // mock一次函数实现
+        add.mockReturnValue(value)  // mock返回值
+        add.mockReturnValueOnce(value) // mock一次返回值
+
+
 - 使用 `__mocks__` 目录
 - 时间的mock(针对`settimout`, `setInterval`等)     
     `jest.useFakeTimers()` 打开time mock 功能       
