@@ -38,10 +38,10 @@
 | 生态项目 | 工具lib |
 | --- | ----| 
 | `React` | `jest` |
-| `react-router` | `jest + test-utils + react-test-renderer` |
+| `react-router` | `jest + react-test-renderer` |
 | `react-redux` | `jest + testing-library/react` 由 `enzyme`迁移而来 |
 | `mobx-react` | `jest + testing-library/react` 由`enzyme` 迁移而来 |
-| `antd` |  `jest + enzyme + test-renderer` |
+| `antd` |  `jest + enzyme + react-test-renderer` |
 | `material-UI` |  `mocha + enzyme + react-test-renderer & karma` |
 | `react-bootstrap` | `mocha + sinon + enzyme & karma` | 
 
