@@ -37,7 +37,6 @@
 ## React生态常用项目使用的测试工具：
 | 生态项目 | 工具lib |
 | --- | ----| 
-| `React` | `jest` |
 | `react-router` | `jest + react-test-renderer` |
 | `react-redux` | `jest + testing-library/react` 由 `enzyme`迁移而来 |
 | `mobx-react` | `jest + testing-library/react` 由`enzyme` 迁移而来 |
